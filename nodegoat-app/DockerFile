@@ -1,0 +1,28 @@
+FROM node:7.8.0
+
+ENV RELEASE_URL https://github.com/OWASP/NodeGoat/archive/master.zip
+ENV RELEASE_DIR NodeGoat-master
+
+ADD ./development.js /app/development.js
+
+WORKDIR /app
+
+RUN \
+  apt-get update && \
+  apt-get -y install bash bash-doc bash-completion curl wget unzip mongodb && \
+  mkdir -p /data/db && \
+  cd /app && wget "${RELEASE_URL}" -O nodegoat.zip && \
+  unzip nodegoat.zip && \ 
+  rm nodegoat.zip && \
+  cp /app/development.js /app/${RELEASE_DIR}/config/env && \
+  cd ${RELEASE_DIR} && \
+  npm install 
+
+COPY ./start-server.sh /app/${RELEASE_DIR}/start-server.sh
+
+WORKDIR /app/${RELEASE_DIR}
+
+EXPOSE 4000
+
+CMD ["./start-server.sh"]
+

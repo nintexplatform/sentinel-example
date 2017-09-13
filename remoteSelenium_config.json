@@ -1,0 +1,9 @@
+{
+  "browserName" : "Chrome", 
+  "browser_version" : "38.0",
+  "os" : "Windows", 
+  "os_version" : "7",
+  "browserstack.user" : "xyz",
+  "browserstack.key" : "aBC12T",
+   "resolution": "1920x1080"
+}
