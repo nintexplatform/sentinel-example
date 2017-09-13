@@ -1,5 +1,5 @@
 {
-  "name": "nwc-automation-example",
+  "name": "sentinel-example",
   "version": "1.0.0",
   "description": "Example usage of Sentinel automated security testing framework",
   "main": "",
@@ -11,6 +11,6 @@
   "author": "Nintex",
   "license": "Apache-2.0",
   "dependencies": {
-    "sentinel-ast": "^0.0.1"
+    "sentinel-ast": "^1.0.1"
   }
 }
