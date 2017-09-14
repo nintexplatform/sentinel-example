@@ -6,7 +6,7 @@
   "scripts": {
     "start-services": "sentinel start-services --yaml ./nodegoat-app/docker-compose.yml",
     "stop-services": "sentinel stop-services --yaml ./nodegoat-app/docker-compose.yml",
-    "test": "sentinel run-cucumber"
+    "test": "sentinel run-cucumber --yaml ./nodegoat-app/docker-compose.yml"
   },
   "author": "Nintex",
   "license": "Apache-2.0",
