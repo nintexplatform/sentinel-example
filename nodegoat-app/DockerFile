@@ -19,6 +19,7 @@ RUN \
   npm install 
 
 COPY ./start-server.sh /app/${RELEASE_DIR}/start-server.sh
+COPY ./server.js /app/${RELEASE_DIR}/server.js
 
 WORKDIR /app/${RELEASE_DIR}
 
