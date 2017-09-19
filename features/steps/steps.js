@@ -1,5 +1,5 @@
 module.exports = function () {
 
-  // Add your Step definations here
+  // Add your Step definitions here
 
 };
