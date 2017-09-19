@@ -11,6 +11,6 @@
   "author": "Nintex",
   "license": "Apache-2.0",
   "dependencies": {
-    "sentinel-ast": "^1.0.1"
+    "sentinel-ast": "^1.0.6"
   }
 }
