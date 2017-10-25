@@ -3,6 +3,6 @@ services:
   nodegoat:
     build:
       context: ##THIS_DIR##/.
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     ports:
      - 4000
