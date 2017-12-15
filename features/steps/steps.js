@@ -15,7 +15,7 @@ const RestStepsWrapper = function () {
 
     this.When(/^I GET the "([^"]+)"$/, async function (urlpath) {
         const token = 'SharedAccessSignature 58ac24368d560a006b030003&201801030618&vza3SxXFcFFt+SPFBjEB8goDyNYWcKmdrHaS0LlMGAg+TLRFmKPnogMCbDz9i3hfvuSDse24ueWNjLvnfCYHCQ==';
-        await sendRequest('GET', urlpath, token);
+        lastResponse = await sendRequest('GET', urlpath, token);
     });
 
     function sendRequest (operation, path, validHeader, requestBody){
@@ -32,9 +32,8 @@ const RestStepsWrapper = function () {
                     reject(new Error(`Error on ${operation} request to ${uri} : ${error.message}`));
                     return;
                 }
-                logger.log(response.statusCode);
-                logger.log(JSON.stringify(response.body, null, 2));
-                self.lastResponse = response;
+                console.log(response.statusCode);
+                console.log(JSON.stringify(response.body, null, 2));
                 resolve(response);
             });
         });
