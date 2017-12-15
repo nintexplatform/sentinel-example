@@ -8,6 +8,7 @@
 
 const jsonPath = require('JSONPath').eval;
 const assert = require('assert');
+const request = require('request');
 
 const RestStepsWrapper = function () {
 
