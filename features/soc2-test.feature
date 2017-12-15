@@ -8,4 +8,4 @@ Scenario: Check whether the API Traffic for NWC Workflow flows through HTTPS onl
 
 Scenario: Check whether the API Traffic for NWC Workflow flows not through HTTP only
   When I GET the "http://us.nintex.io/workflows/v1/designs"
-  Then the http status should be 200
+  Then the http status should be 404
