@@ -18,6 +18,12 @@ const RestStepsWrapper = function () {
         lastResponse = await sendRequest('GET', urlpath, setHeaderWithAuthToken(token));
     });
 
+    // Check if a certain property of the response is equal to something
+    this.Then(/^(?:the )?([\w_.$\[\]]+) should equal "([^"]+)"$/, function (key, expectedValue, callback) {
+        if (!assertPropertyIs(lastResponse, key, expectedValue, callback)) { return; }
+        callback();
+    });
+
     function sendRequest (operation, path, validHeader, requestBody){
           const requestInfo = {
                 url: path,
@@ -66,6 +72,81 @@ const RestStepsWrapper = function () {
     }
     return true;
   };
+
+  function assertPropertyIs(lastResponse, key, expectedValue, callback) {
+    const value = assertPropertyExists(lastResponse, key, expectedValue, callback);
+    if (!value) { return false; }
+    if (value !== expectedValue) {
+        callback.fail(`The last response did not have the expected content in property ${key} Got:${value}. Expected it to contain:${expectedValue}`);
+        return false;
+    }
+    return true;
+}
+
+function assertPropertyContains(lastResponse, key, expectedValue, callback) {
+    const value = assertPropertyExists(lastResponse, key, expectedValue, callback);
+    if (!value) { return false; }
+    if (value.indexOf(expectedValue) === -1) {
+        callback.fail(`The last response did not have the expected content in property ${key} Got:${value}. Expected it to contain:${expectedValue}`);
+        return false;
+    }
+    return true;
+}
+
+function assertPropertyExists(lastResponse, key, expectedValue, callback) {
+  const object = assertValidJson(lastResponse, callback);
+  if (!object) { return null; }
+  let property;
+  if (key.indexOf('$.') !== 0 && key.indexOf('$[') !== 0) {
+      property = object[key];
+  } else {
+      const matches = jsonPath(object, key);
+      if (matches.length === 0) {
+          callback.fail(`The last response did not have the property: ${key} Expected it to be ${expectedValue}`);
+          return null;
+      } else if (matches.length > 1) {
+          callback.fail(`JSONPath expression ${key} returned more than one match in object: ${JSON.stringify(object)}`);
+          return null;
+      }
+      property = matches[0];
+  }
+  if (property == null) {
+      callback.fail(`The last response did not have the property ${key} Expected it to be ${expectedValue}`);
+      return null;
+  }
+  return property;
+}
+
+function assertResponse(lastResponse) {
+  if (!lastResponse) {
+      logger.error('No request has been made until now.');
+      return false;
+  }
+  return true;
+}
+
+function assertBody(lastResponse, callback) {
+  if (!assertResponse(lastResponse, callback)) { return false; }
+  if (!lastResponse.body) {
+      callback.fail(new Error('The response to the last request had no body.'));
+      return null;
+  }
+  return lastResponse.body;
+}
+
+function assertValidJson(lastResponse, callback) {
+  const body = assertBody(lastResponse, callback);
+  if (!body) { return null; }
+  try {
+      return JSON.parse(body);
+  } catch (e) {
+      callback.fail(
+      new Error('The body of the last response was not valid JSON.'));
+      return null;
+  }
+}
+
+
 };
 
 module.exports = RestStepsWrapper;
