@@ -15,7 +15,7 @@ const RestStepsWrapper = function () {
 
     this.When(/^I GET the "([^"]+)"$/, async function (urlpath) {
         const token = 'SharedAccessSignature 58ac24368d560a006b030003&201801030618&vza3SxXFcFFt+SPFBjEB8goDyNYWcKmdrHaS0LlMGAg+TLRFmKPnogMCbDz9i3hfvuSDse24ueWNjLvnfCYHCQ==';
-        lastResponse = await sendRequest('GET', urlpath, token);
+        lastResponse = await sendRequest('GET', urlpath, setHeaderWithAuthToken(token));
     });
 
     function sendRequest (operation, path, validHeader, requestBody){
@@ -26,7 +26,7 @@ const RestStepsWrapper = function () {
                 headers: validHeader,
           }
         return new Promise((resolve, reject) => {
-            logger.log(requestInfo.url);
+          console.log(requestInfo.url);
             request(requestInfo, (error, response) => {
                 if (error) {
                     reject(new Error(`Error on ${operation} request to ${uri} : ${error.message}`));
@@ -48,6 +48,16 @@ const RestStepsWrapper = function () {
             assert(true);
         }
     });
+
+    function setHeaderWithAuthToken (token) {
+      return {
+          'Content-Type': 'application/json',
+          Connection: 'keep-alive',
+          'Cache-Control': 'max-age=0',
+          'If-Modified-Since': 0,
+          Authorization: `${token}`,
+      };
+  };
 };
 
 module.exports = RestStepsWrapper;
