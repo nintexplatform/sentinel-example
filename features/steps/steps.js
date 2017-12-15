@@ -14,7 +14,7 @@ const RestStepsWrapper = function () {
 
     this.When(/^I GET the "([^"]+)"$/, async function (urlpath) {
         const token = 'SharedAccessSignature 58ac24368d560a006b030003&201801030618&vza3SxXFcFFt+SPFBjEB8goDyNYWcKmdrHaS0LlMGAg+TLRFmKPnogMCbDz9i3hfvuSDse24ueWNjLvnfCYHCQ==';
-        await this.sendRequest('GET', urlpath, token);
+        await sendRequest('GET', urlpath, token);
     });
 
     function sendRequest (operation, path, validHeader, requestBody){
