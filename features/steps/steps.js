@@ -58,6 +58,14 @@ const RestStepsWrapper = function () {
           Authorization: `${token}`,
       };
   };
+
+  function assertResponse(lastResponse) {
+    if (!lastResponse) {
+        logger.error('No request has been made until now.');
+        return false;
+    }
+    return true;
+  };
 };
 
 module.exports = RestStepsWrapper;
