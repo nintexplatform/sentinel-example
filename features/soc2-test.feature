@@ -1,11 +1,20 @@
 @SOC2
-Feature: API Traffic should flow over HTTPS and not through HTTP protocol
+Feature: API Traffic should flow over HTTPS. If it over HTTP, it should get re-directed to HTTPS
 
-Scenario: Check whether the API Traffic for NWC Workflow flows through HTTPS only
-  When I GET the "https://nxttst01apiwus01.management.azure-api.net/apis/591a6d5824fcb5c66ea972b4?api-version=2016-10-10"
-  Then the http status should be 200
-   And the $.protocols[0] should equal "https"
-
-Scenario: Check whether the API Traffic for NWC Workflow flows not through HTTP only
+Scenario: Check whether the API Traffic for NWC Workflow gets re-directed to HTTPS when request contains HTTP protocol
   When I GET the "http://us.nintex.io/workflows/v1/designs"
-  Then the http status should be 404
+  Then the http status should be 307
+
+Scenario: Check whether the API Traffic for NWC Workflow flows through HTTPS protocol
+  When I GET the "https://us.nintex.io/workflows/v1/designs"
+  # Expect 401 Error Azure APIM/Internal services
+  Then the http status should be 401
+
+Scenario: Check whether the API Traffic for ZINC gets re-directed to HTTPS when request contains HTTP protocol
+  When I GET the "http://zncprd01srvwebwus01.azurewebsites.net/api/v1/form/Definition/415041b2-5677-48e4-83ef-e98bf32db079"
+  Then the http status should be 307
+
+Scenario: Check whether the API Traffic for ZINC flows through HTTPS protocol
+  When I GET the "https://zncprd01srvwebwus01.azurewebsites.net/api/v1/form/Definition/415041b2-5677-48e4-83ef-e98bf32db079"
+  # Expect 401 Error Azure APIM/Internal services
+  Then the http status should be 401

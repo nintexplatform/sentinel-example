@@ -30,6 +30,7 @@ const RestStepsWrapper = function () {
                 json: requestBody,
                 method: operation,
                 headers: validHeader,
+                followRedirect: false,
           }
         return new Promise((resolve, reject) => {
           console.log(requestInfo.url);
