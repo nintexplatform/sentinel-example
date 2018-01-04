@@ -3,7 +3,8 @@ Feature: API Traffic should flow over HTTPS. If it over HTTP, it should get re-d
 
 Scenario: Check whether the API Traffic for NWC Workflow gets re-directed to HTTPS when request contains HTTP protocol
   When I GET the "http://nxttst01apiwus01.azure-api.net/workflows/v1/designs/published"
-  Then the http status should be 301
+  # Expect 404 from APIM 
+  Then the http status should be 404
 
 Scenario: Check whether the API Traffic for NWC Workflow flows through HTTPS protocol
   When I GET the "https://nxttst01apiwus01.azure-api.net/workflows/v1/designs/published"
