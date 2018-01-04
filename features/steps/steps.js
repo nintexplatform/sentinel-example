@@ -14,8 +14,9 @@ const RestStepsWrapper = function () {
     let lastResponse = null;
 
     this.When(/^I GET the "([^"]+)"$/, async function (urlpath) {
-        const token = 'SharedAccessSignature 58ac24368d560a006b030003&201801030618&vza3SxXFcFFt+SPFBjEB8goDyNYWcKmdrHaS0LlMGAg+TLRFmKPnogMCbDz9i3hfvuSDse24ueWNjLvnfCYHCQ==';
-        lastResponse = await sendRequest('GET', urlpath, setHeaderWithAuthToken(token));
+        //Note: Below token is not an valid one and Purely used for demo purpose
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwb3J0YWwiLCJ0ZW5hbnROYW1lIjoibWFkaGF4In0.6QZuFnLKBYESZEzGZFwtTRxDWpinz4vk59upnsxEYSQ';
+        lastResponse = await sendRequest('GET', `${urlpath}?token=${token}`);
     });
 
     // Check if a certain property of the response is equal to something
