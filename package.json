@@ -4,13 +4,13 @@
   "description": "Example usage of Sentinel automated security testing framework",
   "main": "",
   "scripts": {
-    "start-services": "sentinel start-services --yaml ./nodegoat-app/docker-compose.yml",
-    "stop-services": "sentinel stop-services --yaml ./nodegoat-app/docker-compose.yml",
-    "test": "sentinel run-cucumber --yaml ./nodegoat-app/docker-compose.yml"
+    "start-services": "sentinel start-services",
+    "stop-services": "sentinel stop-services",
+    "test": "sentinel run-cucumber"
   },
   "author": "Nintex",
   "license": "Apache-2.0",
   "dependencies": {
-    "sentinel-ast": "^1.0.6"
+    "sentinel-ast": "^1.4.0"
   }
 }
