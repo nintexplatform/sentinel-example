@@ -1,0 +1,15 @@
+{
+  "integrations": {
+    "whitelist": [
+      "node",
+      "docker",
+      "cucumber-report",
+      "selenium",
+      "sslyze",
+      "zap"
+    ],
+    "customServices": [
+        "./nodegoat-app/docker-compose.yml"
+    ]
+  }
+}
